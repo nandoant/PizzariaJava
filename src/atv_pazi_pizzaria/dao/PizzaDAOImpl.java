@@ -1,9 +1,9 @@
 package atv_pazi_pizzaria.dao;
 
 import atv_pazi_pizzaria.Model.Pizza;
-import atv_pazi_pizzaria.Model.Pizzas.Caipira;
-import atv_pazi_pizzaria.Model.Pizzas.Calabresa;
-import atv_pazi_pizzaria.Model.Pizzas.FrangoComCatupiry;
+import atv_pazi_pizzaria.Model.PizzaSabores.Caipira;
+import atv_pazi_pizzaria.Model.PizzaSabores.Calabresa;
+import atv_pazi_pizzaria.Model.PizzaSabores.FrangoComCatupiry;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

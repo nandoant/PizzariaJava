@@ -1,5 +1,5 @@
 
-package atv_pazi_pizzaria.Model.Pizzas;
+package atv_pazi_pizzaria.Model.PizzaSabores;
 
 import atv_pazi_pizzaria.Model.Pizza;
 

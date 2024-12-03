@@ -3,7 +3,7 @@ package atv_pazi_pizzaria.view;
 import java.util.Scanner;
 
 import atv_pazi_pizzaria.Model.Pizza;
-import atv_pazi_pizzaria.Model.Pizzas.PizzaGenerica;
+import atv_pazi_pizzaria.Model.PizzaSabores.PizzaGenerica;
 import atv_pazi_pizzaria.dao.PizzaDAOImpl;
 
 public class PizzaView {
