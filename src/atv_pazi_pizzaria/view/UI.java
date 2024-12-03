@@ -12,6 +12,7 @@ public class UI {
     private DiaTrabalhoView diaTrabalho = new DiaTrabalhoView();
     private PizzaView pizza = new PizzaView();
     private PedidoView pedido = new PedidoView();
+    private RelatorioView relatorio = new RelatorioView();
     private PizzaDAOImpl pizzaDB = new PizzaDAOImpl();
 
     public UI(Scanner scanner) {
@@ -38,7 +39,7 @@ public class UI {
                     diaTrabalho.menuDiaTrabalho(diasDeTrabalho, diaSelecionado);
                     break;
                 case 4:
-                    //menuRelatorios();
+                    relatorio.menuRelatorios(diasDeTrabalho, diaSelecionado);
                     break;  
                 case 5:
                     diaSelecionado = alterarDiaSelecionado(diasDeTrabalho, diaSelecionado);
