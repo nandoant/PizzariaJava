@@ -46,7 +46,7 @@ public class RelatorioView {
         for (DiaTrabalho dia : diasDeTrabalho.values()) {
             for (Pedido pedido : dia.getPedidos()) {
                 if (pedido.getCliente().getNome().equals(nome)) {
-                    System.out.println("data: "+dia.getData());
+                    System.out.println("Data: "+dia.getData());
                     exibirDetalhesPedido(pedido);
                     count++;
                     total += pedido.calcularValorTotal();
