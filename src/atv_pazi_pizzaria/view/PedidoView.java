@@ -14,7 +14,10 @@ public class PedidoView {
 
     public void menuPedidos(DiaTrabalho diaSelecionado , PizzaDAOImpl pizzaDB) {
         while (true) {
-            System.out.println("\n=== Menu Pedidos ===");
+            System.out.println("\n---------------------------------");
+            System.out.println("Dia Selecionado: " + diaSelecionado.getData());
+            System.out.println("---------------------------------");
+            System.out.println("=== Menu Pedidos ===");
             System.out.println("1. Adicionar Pedido");
             System.out.println("2. Atualizar Pedido");
             System.out.println("3. Remover Pedido");
@@ -46,7 +49,7 @@ public class PedidoView {
                     default:
                         System.out.println("Opcao invalida!");
                 }
-        }  catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             System.out.println("Por favor, digite um numero valido!");
         }
         }

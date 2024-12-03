@@ -13,7 +13,10 @@ public class DiaTrabalhoView {
         diasDeTrabalho.put(diaSelecionado.getData(), diaSelecionado);
 
         while (true) {
-            System.out.println("\n=== Menu Dia de Trabalho ===");
+            System.out.println("\n--------------------------");
+            System.out.println("Dia Selecionado: " + diaSelecionado.getData());
+            System.out.println("--------------------------");
+            System.out.println("=== Menu Dia de Trabalho ===");
             System.out.println("1. Adicionar");
             System.out.println("2. Remover");
             System.out.println("3. Atualizar");

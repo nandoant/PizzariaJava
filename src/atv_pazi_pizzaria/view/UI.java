@@ -60,7 +60,7 @@ public class UI {
 
     private void mostrarMenuPrincipal(DiaTrabalho diaSelecionado) {
         System.out.println("\n--------------------------");
-        System.out.println("Dia de Trabalho Selecionado: " + diaSelecionado.getData());
+        System.out.println("Dia Selecionado: " + diaSelecionado.getData());
         System.out.println("--------------------------");
         System.out.println("=== Sistema da Pizzaria ===");
         System.out.println("1. Pedidos");
