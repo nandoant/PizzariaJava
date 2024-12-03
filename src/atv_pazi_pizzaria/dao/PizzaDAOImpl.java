@@ -47,4 +47,17 @@ public class PizzaDAOImpl implements PizzaDAO {
     public void removerPizza(Integer id) {
         pizzas.remove(id);
     }
+
+    public void listarPizza() {
+        System.out.println("\n=== Pizzas Disponiveis ===");
+        
+        for (Pizza pizza: pizzas.values()) {
+        
+            System.out.println("ID: " + pizza.getId());
+            System.out.println("Nome: " + pizza.getNome());
+            System.out.println("Ingredientes: " + pizza.getIngredientes());
+            System.out.println("Preco: R$ " + pizza.getPreco());
+            System.out.println("----------------------");
+        }
+    }
 }

@@ -9,8 +9,9 @@ import atv_pazi_pizzaria.dao.PizzaDAOImpl;
 
 public class UI {
     private Scanner scanner;
-    private DiaTrabalhoView diaTrabalhoView = new DiaTrabalhoView();
-    private PizzaView pizzaView = new PizzaView();
+    private DiaTrabalhoView diaTrabalho = new DiaTrabalhoView();
+    private PizzaView pizza = new PizzaView();
+    private PedidoView pedido = new PedidoView();
     private PizzaDAOImpl pizzaDB = new PizzaDAOImpl();
 
     public UI(Scanner scanner) {
@@ -28,13 +29,13 @@ public class UI {
             
             switch (opcao) {
                 case 1:
-                    //menuPedidos();
+                    pedido.menuPedidos(diasDeTrabalho, diaSelecionado, pizzaDB);
                     break;
                 case 2:
-                    pizzaView.menuPizzas(pizzaDB);
+                    pizza.menuPizzas(pizzaDB);
                     break;
                 case 3:
-                    diaTrabalhoView.menuDiaTrabalho(diasDeTrabalho, diaSelecionado);
+                    diaTrabalho.menuDiaTrabalho(diasDeTrabalho, diaSelecionado);
                     break;
                 case 4:
                     //menuRelatorios();

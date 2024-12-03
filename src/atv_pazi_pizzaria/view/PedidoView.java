@@ -1,21 +1,25 @@
 package atv_pazi_pizzaria.view;
 
+import java.util.HashMap;
+import java.util.Scanner;
+
 import atv_pazi_pizzaria.Model.Cliente;
 import atv_pazi_pizzaria.Model.DiaTrabalho;
 import atv_pazi_pizzaria.Model.Pedido;
 import atv_pazi_pizzaria.Model.Pizza;
-import atv_pazi_pizzaria.dao.ClienteDAO;
-import atv_pazi_pizzaria.dao.DiaTrabalhoDAO;
+import atv_pazi_pizzaria.dao.PizzaDAOImpl;
+
 
 public class PedidoView {
-        private void menuPedidos() {
+    private Scanner scanner = new Scanner(System.in);
+
+    public void menuPedidos(HashMap<String, DiaTrabalho> diasDeTrabalho, DiaTrabalho diaSelecionado , PizzaDAOImpl pizzaDB) {
         System.out.println("\n=== Menu Pedidos ===");
         System.out.println("1. Adicionar Pedido");
         System.out.println("2. Atualizar Pedido");
         System.out.println("3. Remover Pedido");
         System.out.println("4. Buscar Pedido");
-        System.out.println("5. Buscar Pedido por Cliente");
-        System.out.println("6. Listar Pedidos por Dia de Trabalho");
+        System.out.println("5. Listar Todos Pedidos");
         System.out.println("0. Voltar");
         System.out.println("Opcao: ");
         
@@ -46,33 +50,20 @@ public class PedidoView {
         }
     }
 
-    private void adicionarPedido() {
+    private void adicionarPedido(DiaTrabalho diaSelecionado, PizzaDAOImpl pizzaDB) {
     System.out.println("\n=== Adicionar Pedido ===");
-    
-    System.out.print("Data do pedido (DD/MM/YY): ");
-    String data = scanner.nextLine();
-    DiaTrabalho diaTrabalho = DiaTrabalhoDAO.obterDiaTrabalhoPorId(data);
-    if (diaTrabalho == null) {
-        System.out.println("Dia de trabalho nao encontrado!");
-        return;
-    }
 
-    System.out.print("ID do Cliente: ");
-    Integer clienteId = Integer.parseInt(scanner.nextLine());
-    Cliente cliente = ClienteDAO.obterClientePorId(clienteId);
-    if (cliente == null) {
-        System.out.println("Cliente nao encontrado!");
-        return;
-    }
+    System.out.print("Nome do Cliente");
+    Cliente cliente = new Cliente(scanner.nextLine());
 
     System.out.print("Observacoes: ");
     String observacoes = scanner.nextLine();
-    Pedido pedido = new Pedido(0, cliente, observacoes);
+    Pedido pedido = new Pedido(diaSelecionado.getPedidos().size() + 1, cliente, observacoes);
 
     boolean adicionarPizzas = true;
     while (adicionarPizzas) {
         System.out.println("\nPizzas disponíveis:");
-        listarPizza();
+        pizzaDB.listarPizza();
         
         System.out.print("\nID da Pizza (0 para finalizar): ");
         Integer pizzaId = Integer.parseInt(scanner.nextLine());
@@ -80,7 +71,7 @@ public class PedidoView {
         if (pizzaId == 0) {
             adicionarPizzas = false;
         } else {
-            Pizza pizza = pizzaService.obterPizzaPorId(pizzaId);
+            Pizza pizza = pizzaDB.obterPizzaPorId(pizzaId);
             if (pizza != null) {
                 pedido.getPizzas().add(pizza);
                 System.out.println("Pizza adicionada ao pedido!");
@@ -95,9 +86,7 @@ public class PedidoView {
         return;
     }
 
-    pedidoService.adicionarPedido(pedido);
-    diaTrabalho.getPedidos().add(pedido);
-    diaTrabalhoService.atualizarDiaTrabalho(diaTrabalho);
+    diaSelecionado.getPedidos().add(pedido);
     
     System.out.println("Pedido adicionado com sucesso! Total: R$ " + 
         pedido.calcularValorTotal());
@@ -171,35 +160,6 @@ public class PedidoView {
             exibirDetalhesPedido(pedido);
         } else {
             System.out.println("Pedido nao encontrado!");
-        }
-    }
-
-    private void buscarPedidoPorCliente() {
-        System.out.println("\n=== Buscar Pedido por Cliente ===");
-        System.out.print("ID do Cliente: ");
-        Integer clienteId = Integer.parseInt(scanner.nextLine());
-
-        Pedido pedido = pedidoService.obterPedidoPorClienteID(clienteId);
-        if (pedido != null) {
-            exibirDetalhesPedido(pedido);
-        } else {
-            System.out.println("Nenhum pedido encontrado para este cliente!");
-        }
-    }
-
-    private void listarPedidosPorDia() {
-        System.out.println("\n=== Listar Pedidos por Dia ===");
-        System.out.print("Data (DD/MM/YY): ");
-        String data = scanner.nextLine();
-
-        DiaTrabalho dia = diaTrabalhoService.obterDiaTrabalhoPorId(data);
-        if (dia != null) {
-            for (Pedido pedido : dia.getPedidos()) {
-                exibirDetalhesPedido(pedido);
-                System.out.println("--------------------");
-            }
-        } else {
-            System.out.println("Dia nao encontrado!");
         }
     }
 
