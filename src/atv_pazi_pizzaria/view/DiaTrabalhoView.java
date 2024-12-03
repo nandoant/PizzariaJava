@@ -17,11 +17,11 @@ public class DiaTrabalhoView {
             System.out.println("Dia Selecionado: " + diaSelecionado.getData());
             System.out.println("--------------------------");
             System.out.println("=== Menu Dia de Trabalho ===");
-            System.out.println("1. Adicionar");
-            System.out.println("2. Remover");
-            System.out.println("3. Atualizar");
-            System.out.println("4. Buscar");
-            System.out.println("5. Listar");
+            System.out.println("1. Adicionar um Dia de Trabalho");
+            System.out.println("2. Remover um Dia de Trabalho");
+            System.out.println("3. Atualizar o Dia Selecionado");
+            System.out.println("4. Buscar um Dia de Trabalho");
+            System.out.println("5. Listar Todos os Dias de Trabalho");
             System.out.println("0. Voltar");
             System.out.print("Opcao: ");
 
@@ -120,6 +120,7 @@ public class DiaTrabalhoView {
             for (DiaTrabalho dia : diasDeTrabalho.values()) {
                 System.out.println("Data: " + dia.getData());
                 System.out.println("Numero de pedidos: " + dia.getPedidos().size());
+                System.out.println("Total de vendas: " + dia.getTotalVendas());
                 System.out.println("--------------------");
             }
         }

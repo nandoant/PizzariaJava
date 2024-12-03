@@ -28,4 +28,12 @@ public class DiaTrabalho {
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
     }
+
+    public double getTotalVendas() {
+        double total = 0;
+        for (Pedido pedido : pedidos) {
+            total += pedido.calcularValorTotal();
+        }
+        return total;
+    }
 }
