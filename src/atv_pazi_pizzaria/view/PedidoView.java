@@ -92,12 +92,16 @@ public class PedidoView {
         pedido.calcularValorTotal());
 }
 
-    private void atualizarPedido() {
+    private void atualizarPedido(DiaTrabalho diaSelecionado, PizzaDAOImpl pizzaDB) {
         System.out.println("\n=== Atualizar Pedido ===");
         System.out.print("ID do Pedido: ");
         Integer id = Integer.parseInt(scanner.nextLine());
 
-        Pedido pedido = pedidoService.obterPedidoPorId(id);
+        Pedido pedido = diaSelecionado.getPedidos().stream()
+            .filter(p -> p.getId().equals(id))
+            .findFirst()
+            .orElse(null);
+
         if (pedido == null) {
             System.out.println("Pedido nao encontrado!");
             return;
@@ -114,14 +118,14 @@ public class PedidoView {
             pedido.getPizzas().clear();
             boolean adicionarPizzas = true;
             while (adicionarPizzas) {
-                listarPizza();
+                pizzaDB.listarPizza();
                 System.out.print("\nID da Pizza (0 para finalizar): ");
                 Integer pizzaId = Integer.parseInt(scanner.nextLine());
 
                 if (pizzaId == 0) {
                     adicionarPizzas = false;
                 } else {
-                    Pizza pizza = pizzaService.obterPizzaPorId(pizzaId);
+                    Pizza pizza = pizzaDB.obterPizzaPorId(pizzaId);
                     if (pizza != null) {
                         pedido.getPizzas().add(pizza);
                         System.out.println("Pizza adicionada!");
@@ -130,7 +134,7 @@ public class PedidoView {
             }
         }
 
-        pedidoService.atualizarPedido(pedido);
+        diaSelecionado.getPedidos().add(pedido);
         System.out.println("Pedido atualizado! Novo total: R$ " + 
             pedido.calcularValorTotal());
     }
