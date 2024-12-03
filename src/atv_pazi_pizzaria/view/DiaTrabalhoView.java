@@ -19,7 +19,7 @@ public class DiaTrabalhoView {
             System.out.println("=== Menu Dia de Trabalho ===");
             System.out.println("1. Adicionar um Dia de Trabalho");
             System.out.println("2. Remover um Dia de Trabalho");
-            System.out.println("3. Atualizar o Dia Selecionado");
+            System.out.println("3. Atualizar um Dia Selecionado");
             System.out.println("4. Buscar um Dia de Trabalho");
             System.out.println("5. Listar Todos os Dias de Trabalho");
             System.out.println("0. Voltar");
@@ -81,7 +81,7 @@ public class DiaTrabalhoView {
 
     private void atualizarDiaTrabalho(HashMap<String, DiaTrabalho> diasDeTrabalho) {
         System.out.println("\n=== Atualizar Dia de Trabalho ===");
-        System.out.println("Digite a data atual (DD/MM/YY):");
+        System.out.println("Digite a data (DD/MM/YY):");
         String dataAtual = scanner.nextLine();
         
         DiaTrabalho diaTrabalho = diasDeTrabalho.get(dataAtual);
