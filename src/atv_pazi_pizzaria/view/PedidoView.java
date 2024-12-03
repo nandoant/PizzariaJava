@@ -1,6 +1,5 @@
 package atv_pazi_pizzaria.view;
 
-import java.util.HashMap;
 import java.util.Scanner;
 
 import atv_pazi_pizzaria.Model.Cliente;
@@ -13,47 +12,46 @@ import atv_pazi_pizzaria.dao.PizzaDAOImpl;
 public class PedidoView {
     private Scanner scanner = new Scanner(System.in);
 
-    public void menuPedidos(HashMap<String, DiaTrabalho> diasDeTrabalho, DiaTrabalho diaSelecionado , PizzaDAOImpl pizzaDB) {
-        System.out.println("\n=== Menu Pedidos ===");
-        System.out.println("1. Adicionar Pedido");
-        System.out.println("2. Atualizar Pedido");
-        System.out.println("3. Remover Pedido");
-        System.out.println("4. Buscar Pedido");
-        System.out.println("5. Listar Todos Pedidos");
-        System.out.println("0. Voltar");
-        System.out.println("Opcao: ");
-        
-        int opcao = Integer.parseInt(scanner.nextLine());
-        switch (opcao) {
-            case 0:
-                return;
-            case 1:
-                adicionarPedido();
-                break;
-            case 2:
-                atualizarPedido();
-                break;
-            case 3:
-                removerPedido();
-                break;
-            case 4:
-                buscarPedido();
-                break;
-            case 5:
-                buscarPedidoPorCliente();
-                break;
-            case 6:
-                this.listarPedidosPorDia();
-                break;
-            default:
-                System.out.println("Opcao invalida!");
+    public void menuPedidos(DiaTrabalho diaSelecionado , PizzaDAOImpl pizzaDB) {
+        while (true) {
+            System.out.println("\n=== Menu Pedidos ===");
+            System.out.println("1. Adicionar Pedido");
+            System.out.println("2. Atualizar Pedido");
+            System.out.println("3. Remover Pedido");
+            System.out.println("4. Buscar Pedido");
+            System.out.println("5. Listar Todos Pedidos");
+            System.out.println("0. Voltar");
+            System.out.println("Opcao: ");
+            
+            int opcao = Integer.parseInt(scanner.nextLine());
+            switch (opcao) {
+                case 0:
+                    return;
+                case 1:
+                    adicionarPedido(diaSelecionado, pizzaDB);
+                    break;
+                case 2:
+                    atualizarPedido(diaSelecionado, pizzaDB);
+                    break;
+                case 3:
+                    removerPedido(diaSelecionado);
+                    break;
+                case 4:
+                    buscarPedido(diaSelecionado);
+                    break;
+                case 5:
+                    listarTodos(diaSelecionado);
+                    break;
+                default:
+                    System.out.println("Opcao invalida!");
+            }
         }
     }
 
     private void adicionarPedido(DiaTrabalho diaSelecionado, PizzaDAOImpl pizzaDB) {
     System.out.println("\n=== Adicionar Pedido ===");
 
-    System.out.print("Nome do Cliente");
+    System.out.print("Nome do Cliente: ");
     Cliente cliente = new Cliente(scanner.nextLine());
 
     System.out.print("Observacoes: ");
@@ -107,7 +105,13 @@ public class PedidoView {
             return;
         }
 
-        System.out.print("Novas observacoes (Enter para manter): ");
+        System.out.print("Nome Atual: " + pedido.getCliente().getNome() + " (Enter para manter): ");
+        String nomeCliente = scanner.nextLine();
+        if (!nomeCliente.trim().isEmpty()) {
+            pedido.getCliente().setNome(nomeCliente);
+        }
+
+        System.out.print("Observacoes Atual: "+pedido.getObservacao()+" (Enter para manter): ");
         String obs = scanner.nextLine();
         if (!obs.trim().isEmpty()) {
             pedido.setObservacao(obs);
@@ -139,27 +143,35 @@ public class PedidoView {
             pedido.calcularValorTotal());
     }
 
-    private void removerPedido() {
+    private void removerPedido(DiaTrabalho diaSelecionado) {
         System.out.println("\n=== Remover Pedido ===");
         System.out.print("ID do Pedido: ");
         Integer id = Integer.parseInt(scanner.nextLine());
 
-        Pedido pedido = pedidoService.obterPedidoPorId(id);
+        Pedido pedido = diaSelecionado.getPedidos().stream()
+            .filter(p -> p.getId().equals(id))
+            .findFirst()
+            .orElse(null);
+
         if (pedido == null) {
             System.out.println("Pedido nao encontrado!");
             return;
         }
 
-        pedidoService.removerPedido(id);
+        diaSelecionado.getPedidos().remove(pedido);
         System.out.println("Pedido removido com sucesso!");
     }
 
-    private void buscarPedido() {
+    private void buscarPedido(DiaTrabalho diaSelecionado) {
         System.out.println("\n=== Buscar Pedido ===");
         System.out.print("ID do Pedido: ");
         Integer id = Integer.parseInt(scanner.nextLine());
 
-        Pedido pedido = pedidoService.obterPedidoPorId(id);
+        Pedido pedido = diaSelecionado.getPedidos().stream()
+            .filter(p -> p.getId().equals(id))
+            .findFirst()
+            .orElse(null);
+
         if (pedido != null) {
             exibirDetalhesPedido(pedido);
         } else {
@@ -176,6 +188,19 @@ public class PedidoView {
         }
         System.out.println("Observacoes: " + pedido.getObservacao());
         System.out.println("Total: R$ " + pedido.calcularValorTotal());
+    }
+
+    private void listarTodos(DiaTrabalho diaSelecionado) {
+        System.out.println("\n=== Todos Pedidos ===");
+        if(diaSelecionado.getPedidos().isEmpty()){
+            System.out.println("Ainda nao foram feitos pedidos nesse dia!");
+            return;
+        }   
+
+        for (Pedido pedido : diaSelecionado.getPedidos()) {
+            exibirDetalhesPedido(pedido);
+            System.out.println("----------------------");
+        }
     }
     
 }

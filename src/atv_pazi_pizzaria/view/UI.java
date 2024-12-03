@@ -29,7 +29,7 @@ public class UI {
             
             switch (opcao) {
                 case 1:
-                    pedido.menuPedidos(diasDeTrabalho, diaSelecionado, pizzaDB);
+                    pedido.menuPedidos(diaSelecionado, pizzaDB);
                     break;
                 case 2:
                     pizza.menuPizzas(pizzaDB);
