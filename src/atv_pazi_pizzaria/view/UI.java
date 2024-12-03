@@ -26,30 +26,35 @@ public class UI {
 
         while (executar) {
             mostrarMenuPrincipal(diaSelecionado);
-            int opcao = Integer.parseInt(scanner.nextLine());
+
+            try{
+                int opcao = Integer.parseInt(scanner.nextLine());
+                switch (opcao) {
+                    case 1:
+                        pedido.menuPedidos(diaSelecionado, pizzaDB);
+                        break;
+                    case 2:
+                        pizza.menuPizzas(pizzaDB);
+                        break;
+                    case 3:
+                        diaTrabalho.menuDiaTrabalho(diasDeTrabalho, diaSelecionado);
+                        break;
+                    case 4:
+                        relatorio.menuRelatorios(diasDeTrabalho, diaSelecionado);
+                        break;  
+                    case 5:
+                        diaSelecionado = alterarDiaSelecionado(diasDeTrabalho, diaSelecionado);
+                        break;
+                    case 0:
+                        executar = false;
+                        break;
+                    default:
+                        System.out.println("Opcao invalida!");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Por favor, digite um numero valido!");
+            } 
             
-            switch (opcao) {
-                case 1:
-                    pedido.menuPedidos(diaSelecionado, pizzaDB);
-                    break;
-                case 2:
-                    pizza.menuPizzas(pizzaDB);
-                    break;
-                case 3:
-                    diaTrabalho.menuDiaTrabalho(diasDeTrabalho, diaSelecionado);
-                    break;
-                case 4:
-                    relatorio.menuRelatorios(diasDeTrabalho, diaSelecionado);
-                    break;  
-                case 5:
-                    diaSelecionado = alterarDiaSelecionado(diasDeTrabalho, diaSelecionado);
-                    break;
-                case 0:
-                    executar = false;
-                    break;
-                default:
-                    System.out.println("Opcao invalida!");
-            }
         }
     }
 

@@ -45,8 +45,6 @@ public class PizzaView {
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Por favor, digite um numero valido.");
-            } catch (Exception e) {
-                System.out.println("Erro: " + e.getMessage());
             }
         }
     }

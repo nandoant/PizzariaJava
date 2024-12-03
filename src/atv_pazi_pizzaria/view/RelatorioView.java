@@ -19,18 +19,23 @@ public class RelatorioView {
             System.out.println("2. Pedidos por Dia de Trabalho");
             System.out.println("0. Voltar");
             System.out.println("Opcao: ");
-            int opcao = Integer.parseInt(scanner.nextLine());
-            switch (opcao) {
-                case 0:
-                    return;
-                case 1:
-                    pedidosPorCliente(diasDeTrabalho);
-                    break;
-                case 2:
-                    pedidosPorDiaTrabalho(diasDeTrabalho);
-                    break;
-                default:
-                    System.out.println("Opcao invalida!");
+
+            try{
+                int opcao = Integer.parseInt(scanner.nextLine());
+                switch (opcao) {
+                    case 0:
+                        return;
+                    case 1:
+                        pedidosPorCliente(diasDeTrabalho);
+                        break;
+                    case 2:
+                        pedidosPorDiaTrabalho(diasDeTrabalho);
+                        break;
+                    default:
+                        System.out.println("Opcao invalida!");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Por favor, digite um numero valido!");
             }
             
         }

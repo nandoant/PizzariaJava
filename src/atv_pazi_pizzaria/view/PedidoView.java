@@ -23,28 +23,32 @@ public class PedidoView {
             System.out.println("0. Voltar");
             System.out.println("Opcao: ");
             
-            int opcao = Integer.parseInt(scanner.nextLine());
-            switch (opcao) {
-                case 0:
-                    return;
-                case 1:
-                    adicionarPedido(diaSelecionado, pizzaDB);
-                    break;
-                case 2:
-                    atualizarPedido(diaSelecionado, pizzaDB);
-                    break;
-                case 3:
-                    removerPedido(diaSelecionado);
-                    break;
-                case 4:
-                    buscarPedido(diaSelecionado);
-                    break;
-                case 5:
-                    listarTodos(diaSelecionado);
-                    break;
-                default:
-                    System.out.println("Opcao invalida!");
-            }
+            try{
+                int opcao = Integer.parseInt(scanner.nextLine());
+                switch (opcao) {
+                    case 0:
+                        return;
+                    case 1:
+                        adicionarPedido(diaSelecionado, pizzaDB);
+                        break;
+                    case 2:
+                        atualizarPedido(diaSelecionado, pizzaDB);
+                        break;
+                    case 3:
+                        removerPedido(diaSelecionado);
+                        break;
+                    case 4:
+                        buscarPedido(diaSelecionado);
+                        break;
+                    case 5:
+                        listarTodos(diaSelecionado);
+                        break;
+                    default:
+                        System.out.println("Opcao invalida!");
+                }
+        }  catch (NumberFormatException e) {
+            System.out.println("Por favor, digite um numero valido!");
+        }
         }
     }
 
